@@ -1,224 +1,214 @@
-//Question 1 
-function convertToNumber(string){
-    try {
-        let answer = Number(string);
-        if (isNaN(answer)){
-            throw new Error;
-        }
-        else {
-            return answer;
-        }
-    } catch{
-        return "Invalid Number";
-    }
-}
 
-
-console.log(convertToNumber("1234"));
-console.log(convertToNumber("abc"));
-console.log(convertToNumber("12dff"));
-console.log(convertToNumber("788920"));
-console.log(convertToNumber("2345a"));
-
-//Question 2
-function getPerson(person){
+// Ques1. Write a function called convertToNumber that takes a string as an argument and returns the equivalent number. If the string cannot be converted into a number, the function should return the string 'invalid number'. Use error handling in js to achieve this output.
+function convertToNumber(str){
     try{
-        if (typeof(person)!= "object" || !person.hasOwnProperty("name") || !person.hasOwnProperty("age")){
+        let answer = Number(str)
+        if(isNaN(answer)){
             throw new Error;
         }
         else {
-            return `Name : ${person.name}, Age : ${person.age}`;
+            console.log(answer)
         }
     }
-    catch {
-        return "Invalid Parameter Type"
+    catch{
+        console.log("Invalid Number");
     }
 }
 
-console.log(getPerson({name:"Mithun",age:21}));
-console.log(getPerson({age:21}));
-console.log(getPerson({name:"Mithun"}));
-console.log(getPerson(["name","Mithun"]));
-console.log(getPerson({name:"Lovejot",age:19}));
+convertToNumber("123");  //123
+convertToNumber("342346");  //342346
+convertToNumber("123df57g");  //Invalid Number
+convertToNumber("abc");  //Invalid Number
 
 
-//Question 3
+// Ques2. Create a function called getPerson that takes an object as a parameter representing a person's name and age. The function should return the person's name and age as a string in the format "Name:<name>, Age:<age>". However, if the parameter is not valid object with the properties name and age. The function should throw an error with the message 'invalid parameters type'. Use try-catch block to handle this error and retur the error message if it occurs. 
+function getPerson(obj){
+    try{
+        if((obj.hasOwnProperty("name")) && obj.hasOwnProperty("age")){
+            return `Name: ${obj.name}, Age: ${obj.age}`;
+        }
+        else{
+            throw new Error("Invalid parameterts type");
+        }
+
+    }
+    catch(error){
+        return error;
+    }
+}
+console.log(getPerson({name:"Mithun", age: 20}));  //Name: Mithun, Age: 20
+console.log(getPerson({name:"Mithun"}));  //Error: Invalid parameterts type
+console.log(getPerson(["name", "age"]));  //Error: Invalid parameterts type
+
+// Ques3. Create a class called Car wtih three properties: company, model, year. The class should have a method called getDescription that returns a string in the format "This is a <year> <company> <model>". Instantiate an instance of the Car class and call the getDescription method.
 class Car{
-    constructor(company,model,year){
-        this.company = company;
-        this.model = model;
-        this.year = year;
+    constructor(m, c, y){
+        this.model = m;
+        this.company = c;
+        this.year = y;
     }
-
     getDescription(){
-        return `This is a ${this.year} ${this.company} ${this.model}.`;
+        console.log(`This is a ${this.year} ${this.company} ${this.model}.`)
     }
 }
 
-let myCar = new Car("Skoda","Rapid","2022");
-console.log(myCar.getDescription());
+let car1 = new Car("Model S","Tesla",2012);  
+let car2 = new Car("Model X","Tesla",2015);
 
+car1.getDescription();  //This is a 2012 Tesla Model S.
+car2.getDescription();  //This is a 2015 Tesla Model X.
 
-//Question 4
+//Ques4. Create a class called Employee with three properties:name, position, salary. The class should have a method called getSalary that returns the employee's salary. Instantiate an instance of the employee class and call the getSalary method
 class Employee{
-    constructor(name,position,salary){
-        this.name = name;
-        this.position = position;
-        this.salary = salary;
+    constructor(n,p,s){
+        this.name = n;
+        this.position = p;
+        this.salary = s;
     }
-
     getSalary(){
-        return this.salary;
+        console.log(this.salary)
     }
 }
 
-let employee1 = new Employee("Lovejot","FrontEnd Developer", 100000);
+let emp1 = new Employee("Lovejot", "SDE", 2000000);
+let emp2 = new Employee("Jack", "UX Designer", 150000);
 
-console.log(employee1.getSalary());
+emp1.getSalary();  //2000000
+emp2.getSalary();  //150000
 
-
-//Question 5
+// Ques. 5 Create a class called Person with two properties name and age. The class should have method called getDetails that returns a string in the format "Name: <name>, Age: <age>"". Use default parameters in the constructor to set the values of name and age to unknown and 0 if they are not provided. 
 class Person{
-    constructor(name="Unknown",age=0){
-        this.name = name;
-        this.age = age;
+    constructor(n = "unknown",a = "0"){  //setting the default values.
+        this.name = n;
+        this.age = a;
     }
 
     getDetails(){
-        return `Name : ${this.name} , Age : ${this.age}`;
+        console.log(`Name: ${this.name}, Age: ${this.age}`);
     }
 }
 
-let person1 = new Person("Lovejot",19);
+let perosn1 = new Person("Lovejot", 19);
 let person2 = new Person();
-let person3 = new Person("Lovejot")
+let person3 = new Person("Edward");
 
-console.log(person1.getDetails());
-console.log(person2.getDetails());
-console.log(person3.getDetails());
+perosn1.getDetails();  //Name: Lovejot, Age: 19
+person2.getDetails();  //Name: unknown, Age: 0
+person3.getDetails();  //Name: Edward, Age: 0
 
-
-//Question 6
+// Ques 6. Create a class called Calculator with a static method called add. The add method should take two numbers as arguments and return their sum. Instantiate the class and call the add method. 
 class Calculator{
-    static add(num1,num2){
-        let result = (num1+num2);
-        return result;
+    static add(num1, num2){
+        return num1+num2;
     }
 }
-
 console.log(Calculator.add(4,5));
-console.log(Calculator.add(14,34));
-console.log(Calculator.add(4,1));
+console.log(Calculator.add(7,3));
+console.log(Calculator.add(2,5));
 
-
-//Question 7
+// Ques7. Create a class called user with the properties username and password. Implement a getter method for password that returns the password with all the characters replaced by asterisks. Implement a setter method for password that checks if the new password is atleast 8 characters long and contains at least one number and one uppercase letter. If the password is valid, set the new password. If not, log an error message. 
 class User{
-    #password;
-    constructor(u,p){
-        this.username = u;
-        this.#password = p;
+    constructor(userName, password){
+        this.userName = userName;
+        this.password = password;
     }
 
     get getPassword(){
-        let asterisksPrinter = "";                                  
-        for (let i = 0; i < this.#password.length; i++) {
-            asterisksPrinter = asterisksPrinter + "*";
+        let hiddenPassword = "";
+        for(let i=0;i<(this.password).length;i++){
+            hiddenPassword+="*"
         }
-        return asterisksPrinter;
+        return hiddenPassword;
     }
 
-    set setPassword(password){
-        let hasNumber = false;
-        let hasCapital = false;
-
-        // loop to check if it has number in it or not
-        for(let i = 0;i<password.length;i++){
-            if(!isNaN(password[i])){
-                hasNumber = true;
+    set setPassword(newPassword){
+        // Checking if there is any uppercase letter
+        let isAnyUppercase = false;
+        for(let i=0;i<newPassword.length;i++){
+            if(newPassword[i]==(newPassword[i]).toUpperCase()){
+                isAnyUppercase = true;
                 break;
             }
         }
 
-        // loop to check if it has capital letter in it
-        for(let i = 0;i<password.length;i++){
-            if(password[i]==password[i].toUpperCase()){
-                hasCapital = true;
+        // Checking if there is any number
+       let isAnyNumber = false;
+       for(let i=0;i<newPassword.length;i++){
+            if(!isNaN(newPassword[i])){
+                isAnyNumber = true;
                 break;
             }
-        }
+       }
 
-        if(password.length>=8 && hasNumber && hasCapital){
-            this.#password = password;
+       if((newPassword.length>8) && isAnyUppercase && isAnyNumber){
+        this.password = newPassword;
+       }
+       else{
+        throw new Error("The password must contain atleast 8 characters and contain at least one number and one uppercase letter.")
+       }
+      
+    }
+
+}
+
+let user1 = new User("Lovejot", "Lovejot98");
+console.log(user1.getPassword);  //*********
+
+// user1.setPassword = "MyPassword"; //Error: The password must contain atleast 8 characters and contain at least one number and one uppercase letter.
+user1.setPassword = "MyPassword123";
+console.log(user1.getPassword)  //*************
+
+
+//Ques 8. Create a prototype object called Student with a property name. Add a method called printDetails to the protoype that logs the string "Hello, my name is {name}" to the console. Instantiate the student object with the name "Lovejot" and call the printDetails method.
+
+let student = {
+    name : "Lovejot",
+    age : 19,
+}
+Object.prototype.printDetails = function(){
+    console.log(`Hello, my name is ${this.name}.`);
+}
+
+student.printDetails();  //Hello, my name is Lovejot.
+
+// Ques 9. Create a numberChecker function that takes an array of numbers as an argument and returns a function. The returned function should take another number as an argument and return true if the number is in the array, and false otherwise. 
+
+function numberChecker(arr){
+     return function (num){
+        if(arr.includes(num)){
+            return true;
         }
-        else {
-            throw new Error("The Password must contain atleast 8 characters and contain atleast one digit and one uppercase letter")
+        else{
+            return false;
         }
     }
     
 }
-let user = new User("Lovejot","Password12");
-// console.log(user.getPassword);
 
-// user.setPassword = "myPassword";  //throws error
+let arr = [1,2,3,4,5,6,7]
 
-// user.setPassword = "MyPassword";    //throws error
+let result = numberChecker(arr);
 
-user.setPassword = "Mypassword123";    //succesfully updates the password
-console.log(user.getPassword);         //print the asterisks same as the length of updated password
+console.log(result(3));  //true
+console.log(result(4));  //true
+console.log(result(9));  //false
 
-
-//Question 8
-function Student(name){
-    this.name = name;
-}
-
-let student = new Student("Mithun");
-
-Object.prototype.printDetails = function(){
-    return `Hello, my name is ${this.name}`;
-}
-
-console.log(student.printDetails());
-
-
-//Question 9
-function numberChecker(arr) {
-    return function (number) {
-        if(arr.includes(number)){
-            return true;
-        }
-        else {
-            return false;
-        }
-    };
-  }
-  
-
-let array1 = [1,2,3,4,5];
-
-let checkNum = numberChecker(array1);
-
-console.log(checkNum(3));
-console.log(checkNum(4));
-console.log(checkNum(6));
-
-//Question 10
-let products = [
-    {name:"Shirts",category:"Clothing"},
-    {name:"Pants",category:"Clothing"},
-    {name:"Hat",category:"Accessories"},
-    {name:"Sunglasses",category:"Acessories"},
-]
-
+// Ques 10. Write a function that takes an array of products and returns a function that filters the array by a given product category. The function should filter an eCommerce products array by a specific category. The closure filters products using the filter method. Finally, return a new array containing only the products with the same category as input. 
 function filterByCategory(arr){
     return function (category){
-        let shortListedItems = arr.filter((item)=>{
-            return item.category===category;
-        })
-        return shortListedItems;
+        let shortlistedItems = arr.filter((item) =>{
+            return item.category === category;
+        } )
+        return shortlistedItems;
     }
+    
 }
 
-let clothingProducts = filterByCategory(products);
+let products = [{name:"shirts", category:"clothing"},
+                {name:"pants", category:"clothing"},
+                {name:"hat", category:"accessories"},
+                {name:"sunglasses", category:"accessories"}
+]
 
-console.log(clothingProducts("Clothing"));
+let clothingProducts = filterByCategory(products);
+console.log(clothingProducts("clothing"));  //[{ name: 'shirts', category: 'clothing' },{ name: 'pants', category: 'clothing' }]
